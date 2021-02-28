@@ -15,11 +15,15 @@ This version of the base project supports the next features:
 - HTTP server middleware management
 - CORS Validation
 - Error Handling
-- Constants Management
+- Constants Management (routes, errors, database)
+- Database Management (connection, modelling)
+- Users CRUD
 
 ## Requirements
 In order to run the project, it is needed to have downloaded and installed the following software:
 - Node.js - https://nodejs.org/en/download/
+- Nodemon - `npm install -g nodemon` <br>
+(recommended, for debugging)
 - MongoDB Server - https://www.mongodb.com/try/download/community
 - MongoDB Compass - https://www.mongodb.com/products/compass <br>
 (recommended, for managing mongo databases)
