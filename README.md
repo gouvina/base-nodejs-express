@@ -20,6 +20,8 @@ This version of the base project supports the next features:
 ## Requirements
 In order to run the project, it is needed to have downloaded and installed the following software:
 - Node.js - https://nodejs.org/en/download/
+- Nodemon - `npm install -g nodemon` <br>
+(recommended, for debugging)
 - MongoDB Server - https://www.mongodb.com/try/download/community
 - MongoDB Compass - https://www.mongodb.com/products/compass <br>
 (recommended, for managing mongo databases)
