@@ -1,12 +1,14 @@
-// Global Environment Variables
-require('dotenv').config();
-
 // Global dependencies
-const express = require('express');
 const path = require('path');
+const express = require('express');
+const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+// Global Environment Variables
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 // Local dependencies
 const routes = require('./constants/routes');
@@ -28,12 +30,16 @@ const corsOptions = {
 // Express app rules
 const app = express();
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
 // Routes
 app.use(routes.USERS, usersRouter);
+
+// Connect to database
+mongoose.connect(DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
 
 module.exports = app;
