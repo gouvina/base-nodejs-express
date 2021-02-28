@@ -1,6 +1,6 @@
 // Local dependencies
-User = require('../models/userModel');
 const { e404, e500 } = require('../constants/Errors');
+User = require('../models/userModel');
 
 // Get list of users
 exports.getUsers = async (req, res, next) => {
@@ -39,11 +39,13 @@ exports.getUserById = (req, res, next) => {
 // Post new user generating id
 exports.createUser = (req, res, next) => {
   try {
-      // Create user and load its data
+      // First, create user and load its data
       let user = new User();
       user.name = req.body.name;
+      user.email = req.body.email;
+      user.password = req.body.password;
       
-      // Save user in database
+      // Second, save user in database
       user.save(function (err) {
         if (err)
           next(e500);
@@ -64,8 +66,13 @@ exports.updateUser = function (req, res) {
     User.findById(req.params.id, function (err, user) {
       if (err)
         next(e404);
-      // Second, update object's info and save it
+      
+      // Second, update user's info
       user.name = req.body.name ? req.body.name : user.name;
+      user.email = req.body.email ? req.body.email : user.email;
+      user.password = req.body.password ? req.body.password : user.password;
+      
+      // Third, save user in database
       user.save(function (err) {
         if (err)
           next(e500);

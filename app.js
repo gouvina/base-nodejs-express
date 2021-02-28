@@ -40,6 +40,5 @@ app.use(routes.USERS, usersRouter);
 
 // Connect to database
 mongoose.connect(DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
 
 module.exports = app;
