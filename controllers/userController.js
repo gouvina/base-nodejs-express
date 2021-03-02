@@ -1,3 +1,6 @@
+// Global dependencies
+const jwt = require('jsonwebtoken');
+
 // Local dependencies
 const { e404, e500 } = require('../constants/Errors');
 User = require('../models/userModel');

@@ -13,6 +13,7 @@ require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 // Local dependencies
 const routes = require('./constants/routes');
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 const { CORS_ORIGIN_WHITELIST, DATABASE_URL } = require('./config');
 
 // CORS options
@@ -37,6 +38,7 @@ app.use(cors(corsOptions));
 
 // Routes
 app.use(routes.USERS, usersRouter);
+app.use(routes.AUTH, authRouter);
 
 // Error handling
 app.use((error, req, res, next) => {
