@@ -12,12 +12,17 @@ Depending on what version of the base project is needed (and which features), di
 
 ## Features
 This version of the base project supports the next features:
-- HTTP server middleware management
-- CORS Validation
-- Error Handling
-- Constants Management (routes, errors, database)
-- Database Management (connection, modelling)
-- Users CRUD
+- Project features:
+    - Constants management
+    - Error handling
+- API features:
+    - HTTP server middleware management (using `express`)
+    - CORS validation (using `cors`)
+    - RESTful endpoints
+    - JWT token authentication (using `jsonwebtoken`)
+- Data features:
+    - Generic database management (using `mongoose`)
+    - Users CRUD
 
 ## Requirements
 In order to run the project, it is needed to have downloaded and installed the following software:
@@ -37,6 +42,8 @@ In order to run the project, it is needed to follow the next steps, taking into 
     - PORT=3000 - *(Or whatever is best)*
     - CORS_ORIGIN_WHITELIST=["localhost"] - *(This list allows hosts to connect)*
     - DATABASE_URL="mongodb://localhost:27017/base-nodejs-express" - *(Or whatever port and database name is suitable)*
+    - JWT_MAIN_SECRET="bdbdh7w8ghf8g4b87bdbnh" - *(Or whatever string)*
+    - JWT_REFRESH_SECRET="p2b4hwwpgklsg21d7bdgnht" - *(Or whatever string)*
 5. Run `npm install`
 6. Run `npm start` for starting server or `npm test` for starting server with `nodemon`
 
