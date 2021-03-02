@@ -38,6 +38,11 @@ app.use(cors(corsOptions));
 // Routes
 app.use(routes.USERS, usersRouter);
 
+// Error handling
+app.use((error, req, res, next) => {
+  return res.status(error.status).json(error);
+});
+
 // Connect to database
 mongoose.connect(DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
