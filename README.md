@@ -12,12 +12,16 @@ Depending on what version of the base project is needed (and which features), di
 
 ## Features
 This version of the base project supports the next features:
-- HTTP server middleware management
-- CORS Validation
-- Error Handling
-- Constants Management (routes, errors, database)
-- Database Management (connection, modelling)
-- Users CRUD
+- Project features:
+    - Constants management
+    - Error handling
+- API features:
+    - HTTP server middleware management (using `express`)
+    - CORS validation (using `cors`)
+    - RESTful endpoints
+- Data features:
+    - Generic database management (using `mongoose`)
+    - Users CRUD
 
 ## Requirements
 In order to run the project, it is needed to have downloaded and installed the following software:
