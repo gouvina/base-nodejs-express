@@ -8,7 +8,7 @@ Depending on what version of the base project is needed (and which features), di
 - `jwt` - Simple authentication management using a `mongo` database and `jwt` tokens.
 - `postgres` - Simple database management using `postgresql`.
 
-**Current Branch:** `mongo`
+**Current Branch:** `jwt`
 
 ## Features
 This version of the base project supports the next features:
