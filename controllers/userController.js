@@ -11,14 +11,14 @@ exports.getUsers = async (req, res, next) => {
     // Request users from database
     const users = await User.find().exec();
     // If found, return them
-    res.json({
+    return res.json({
       message: "Users retrieved",
       data: users
     });
   } catch (err) {
     // If not, log error and return it
     console.log(JSON.stringify(err));
-    next(e500);
+    return next(e500);
   }   
 };
 
@@ -29,16 +29,16 @@ exports.getUserById = async (req, res, next) => {
     const user = await User.findById(req.params.id).exec();
     // If not found, return not found error
     if (!user)
-      next(e404);
+      return next(e404);
     // If found, return it
-    res.json({
+    return res.json({
       message: "User retrieved",
       data: user
     });
   } catch (err) {
     // If not, log error and return it
     console.log(JSON.stringify(err));
-    next(e500);
+    return next(e500);
   }  
 };
 
@@ -52,14 +52,14 @@ exports.createUser = async (req, res, next) => {
     user.password = req.body.password;
     // Save user in database
     const saved_user = await user.save();
-    res.json({
+    return res.json({
         message: 'User created',
         data: saved_user
     });
   } catch (error) {
     // If not, log error and return it
     console.log(JSON.stringify(error));
-    next(e500);
+    return next(e500);
   }
 };
 
@@ -70,21 +70,21 @@ exports.updateUser = async (req, res, next) => {
     const user = await User.findById(req.params.id).exec();
     // If not found, return not found error
     if (!user)
-      next(e404);
+      return next(e404);
     // If found, update user's info
     user.name = req.body.name ? req.body.name : user.name;
     user.email = req.body.email ? req.body.email : user.email;
     user.password = req.body.password ? req.body.password : user.password;
     // Then, save updated user in database
     const saved_user = await user.save();
-    res.json({
+    return res.json({
         message: 'User updated',
         data: saved_user
     });
   } catch (error) {
     // If not, log error and return it
     console.log(JSON.stringify(error));
-    next(e500);
+    return next(e500);
   }       
 };
 
@@ -92,18 +92,18 @@ exports.updateUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   try {
     // Try to delete user from database
-    const user = await User.remove({_id: req.params.id}).exec();
+    const user = await User.deleteOne({_id: req.params.id}).exec();
     // If not found, return not found error
-    if (!user.deletedCount)
-      next(e404);
+    if (user.deletedCount === 0)
+      return next(e404);
     // If found and deleted, return it
-    res.json({
+    return res.json({
       message: 'User deleted',
       data: user
     });
   } catch (error) {
     // If not, log error and return it
     console.log(JSON.stringify(error));
-    next(e500);
+    return next(e500);
   }  
 };
