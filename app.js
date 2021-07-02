@@ -29,9 +29,9 @@ const corsOptions = {
 
 // Express app rules
 const app = express();
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(logger('dev'));7
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
