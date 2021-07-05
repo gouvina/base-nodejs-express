@@ -18,14 +18,14 @@ exports.login = async (req, res, next) => {
         const user = await User.findOne({email: email, password: password}).exec();
         // If not found, return not found error
         if (!user)
-            next(e404);
+            return next(e404);
         // If found, create access token and refresh token
         const accessToken = jwt.sign({ username: user.name }, process.env.JWT_MAIN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
         const refreshToken = jwt.sign({ username: user.name }, process.env.JWT_REFRESH_SECRET);
         // Save refresh token for later
         refreshTokens.push(refreshToken);
         // Retrieve tokens
-        res.json({
+        return res.json({
             message: 'User logged in',
             data: {
                 accessToken: accessToken,
@@ -35,7 +35,7 @@ exports.login = async (req, res, next) => {
     } catch (error) {
         // If not, log error and return it
         console.log(JSON.stringify(error));
-        next(e500);
+        return next(e500);
     }
 };
 
@@ -43,15 +43,14 @@ exports.login = async (req, res, next) => {
 exports.logout = (req, res, next) => {
     try {
         const { token } = req.body;
-        console.log(token);
-        console.log(refreshTokens);
         refreshTokens = refreshTokens.filter(item => item !== token);
-        res.json({
+        console.log(refreshTokens);
+        return res.json({
             message: 'Log out successful',
         });
     } catch (error) {
         console.log(JSON.stringify(error));
-        next(e500);
+        return next(e500);
     }
     
 };
@@ -86,7 +85,7 @@ exports.refreshJWT = (req, res, next) => {
             return res.status(403).send(e403);
         // If it is, produce new access token
         const accessToken = jwt.sign({ username: user.username }, process.env.JWT_MAIN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRATION });
-        res.json({
+        return res.json({
             message: 'User authenticated',
             data: {
                 accessToken: accessToken
@@ -97,7 +96,7 @@ exports.refreshJWT = (req, res, next) => {
 
 // Check refresh JWT tokens
 exports.checkJWT = (req, res, next) => {
-    res.json({
+    return res.json({
         message: 'Refresh tokens',
         data: {
             tokens: refreshTokens
